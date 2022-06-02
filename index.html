@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Typist</title>
+   <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+   <header>
+      <h1>Test your typing speed !!!</h1>
+   </header>
+   <main>
+      <article id="head">
+         <p id="description">This a typing test website where you can check your typing speed by writing the below
+            given text in the textbox provided below. The timer will start as soon as you start typing and it will stop
+            when the text you wrote will match with the provided text</p>
+      </article>
+      <section class="test-area">
+         <div>
+            <p id="original-text">Copy this text. Start Over will give new text.</p>
+         </div>
+         <div class="test-wrapper">
+            <textarea id="text-area" name="textarea" rows="6" placeholder="The clock starts when you start typing."
+               ondrop="return false" onpaste="return false"></textarea>
+         </div>
+
+         <div id="bottom">
+            <section id="clock">
+               <div id="timer">00:00:00</div>
+            </section>
+
+            <button id="reset">Start over</button>
+         </div>
+      </section>
+
+   </main>
+</body>
+<script src="index.js"></script>
+
+</html>
