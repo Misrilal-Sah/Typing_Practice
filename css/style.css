@@ -238,8 +238,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-display span.upcoming {
     color: var(--upcoming-color);
-    border-bottom: 2px solid var(--upcoming-color);
+    border-bottom: 3px solid var(--upcoming-color);
+    padding-bottom: 2px;
+    font-weight: bold;
+    position: relative;
     animation: pulse 1s infinite;
+}
+
+/* Add a pseudo-element to make underline more obvious */
+.text-display span.upcoming::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--upcoming-color);
+    box-shadow: 0 0 5px var(--upcoming-color);
 }
 
 .text-display span.future {

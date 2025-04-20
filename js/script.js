@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultTime = document.getElementById('resultTime');
     const resultMessage = document.getElementById('resultMessage');
     
-    const keySound = new Audio('https://www.soundjay.com/buttons/sounds/button-press-1.mp3');
-    const errorSound = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
-    const successSound = new Audio('https://www.soundjay.com/buttons/sounds/button-49.mp3');
-    const backspaceSound = new Audio('https://www.soundjay.com/buttons/sounds/button-21.mp3');
+    const keySound = new Audio('audio/key.mp3');
+    const errorSound = new Audio('audio/error.mp3');
+    const successSound = new Audio('audio/success.mp3');
+    const backspaceSound = new Audio('audio/backspace.mp3');
     
     let timer;
     let timeElapsed = 0;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let accuracy = 100;
     let typingHistory = [];
     let typedChars = [];
-    let showingCurrentCharacter = true; 
+    let showingCurrentCharacter = false;
     
     init();
     
@@ -170,6 +170,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const currentValue = e.target.value;
         
+        charIndex = currentValue.length;
+        
         const maxLength = Math.min(currentValue.length, originalText.length);
         typedChars = [];
         
@@ -185,8 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         mistakes = typedChars.filter(char => char === 'incorrect').length;
         errorsDisplay.textContent = mistakes;
-        
-        charIndex = currentValue.length;
         
         if (charIndex > 0) {
             const correctChars = charIndex - mistakes;
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             playSound(backspaceSound);
         } else {
             if (currentValue.length > 0 && typedChars[currentValue.length - 1] === 'correct') {
-                playSound(keySound);
+                playSound(successSound);
             } else if (currentValue.length > 0) {
                 playSound(errorSound);
             }
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateDisplayFromTyped() {
         for (let i = 0; i < textDisplay.children.length; i++) {
-            textDisplay.children[i].classList.remove('correct', 'incorrect', 'current', 'upcoming');
+            textDisplay.children[i].classList.remove('correct', 'incorrect', 'current', 'upcoming', 'future');
         }
         
         for (let i = 0; i < typedChars.length; i++) {
