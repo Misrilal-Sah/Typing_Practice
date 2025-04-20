@@ -1,44 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Typist</title>
-   <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-   <header>
-      <h1>Test your typing speed !!!</h1>
-   </header>
-   <main>
-      <article id="head">
-         <p id="description">This a typing test website where you can check your typing speed by writing the below
-            given text in the textbox provided below. The timer will start as soon as you start typing and it will stop
-            when the text you wrote will match with the provided text</p>
-      </article>
-      <section class="test-area">
-         <div>
-            <p id="original-text">Copy this text. Start Over will give new text.</p>
-         </div>
-         <div class="test-wrapper">
-            <textarea id="text-area" name="textarea" rows="6" placeholder="The clock starts when you start typing."
-               ondrop="return false" onpaste="return false"></textarea>
-         </div>
+    <div class="container-fluid p-0 main-container">
+        <div class="theme-toggle-container">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="themeSwitch">
+                <label class="form-check-label" for="themeSwitch">
+                </label>
+            </div>
+        </div>
 
-         <div id="bottom">
-            <section id="clock">
-               <div id="timer">00:00:00</div>
-            </section>
+        <div class="container py-5">
+            <header class="text-center mb-5">
+                <h1 class="display-4" style="padding: 12px 0px;">Typing Practice</h1>
+                <p class="lead">Improve your typing speed and accuracy</p>
+            </header>
 
-            <button id="reset">Start over</button>
-         </div>
-      </section>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="difficulty-selector mb-4">
+                        <div class="btn-group w-100" role="group">
+                            <button type="button" class="btn btn-outline-primary active" data-difficulty="easy">Easy</button>
+                            <button type="button" class="btn btn-outline-primary" data-difficulty="medium">Medium</button>
+                            <button type="button" class="btn btn-outline-primary" data-difficulty="hard">Hard</button>
+                        </div>
+                    </div>
 
-   </main>
+                    <div class="sound-toggle mb-4 text-end">
+                        <div class="form-check form-switch d-inline-block">
+                            <input class="form-check-input" type="checkbox" id="soundToggle" checked>
+                            <label class="form-check-label" for="soundToggle">
+                                <i class="fas fa-volume-up"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="stats-container mb-4">
+                        <div class="row text-center">
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="stat-box">
+                                    <h5>WPM</h5>
+                                    <span id="wpm" class="stat-value">0</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="stat-box">
+                                    <h5>Accuracy</h5>
+                                    <span id="accuracy" class="stat-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="stat-box">
+                                    <h5>Errors</h5>
+                                    <span id="errors" class="stat-value">0</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="stat-box">
+                                    <h5>Time</h5>
+                                    <span id="time" class="stat-value">0s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress mb-4" style="height: 10px;">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+
+                    <div class="typing-container mb-4">
+                        <div id="textDisplay" class="text-display"></div>
+                        <textarea id="textInput" class="form-control mt-3" rows="5" placeholder="Start typing when ready..." disabled></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button id="startBtn" class="btn btn-primary">
+                            <i class="fas fa-play me-2"></i>Start
+                        </button>
+                        <button id="restartBtn" class="btn btn-secondary" disabled>
+                            <i class="fas fa-redo-alt me-2"></i>Restart
+                        </button>
+                    </div>
+
+                    <div class="quote-container mt-5 p-3 text-center">
+                        <i class="fas fa-quote-left fs-3 me-2"></i>
+                        <span id="quote">Keep practicing to improve your typing skills!</span>
+                        <i class="fas fa-quote-right fs-3 ms-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="history-btn" data-bs-toggle="modal" data-bs-target="#historyModal">
+            <i class="fas fa-history"></i>
+        </button>
+    </div>
+
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historyModalLabel">Typing History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>WPM</th>
+                                    <th>Accuracy</th>
+                                    <th>Errors</th>
+                                    <th>Time</th>
+                                    <th>Difficulty</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="clearHistoryBtn">Clear History</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel">Your Results</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="result-icon mb-4">
+                        <i class="fas fa-trophy display-1 text-warning"></i>
+                    </div>
+                    <div class="results-stats">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <h5>WPM</h5>
+                                <span id="resultWpm" class="display-6">0</span>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h5>Accuracy</h5>
+                                <span id="resultAccuracy" class="display-6">0%</span>
+                            </div>
+                            <div class="col-6">
+                                <h5>Errors</h5>
+                                <span id="resultErrors" class="display-6">0</span>
+                            </div>
+                            <div class="col-6">
+                                <h5>Time</h5>
+                                <span id="resultTime" class="display-6">0s</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4" id="resultMessage">
+                        Great job! Keep practicing to improve your typing skills.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="tryAgainBtn">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/texts.js"></script>
+    <script src="js/script.js"></script>
 </body>
-<script src="index.js"></script>
-
-</html>
+</html> 
