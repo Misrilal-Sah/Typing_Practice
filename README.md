@@ -129,3 +129,5 @@ Designed and developed by Misrilal Sah.
 <p align="center">
 	<img src="https://capsule-render.vercel.app/api?type=rect&color=0:0ea5e9,50:1d4ed8,100:0f172a&height=130&section=footer&text=Keep%20Practicing.%20Keep%20Leveling%20Up.&fontSize=28&fontColor=ffffff&fontAlignY=55" alt="Typing Practice Footer" />
 </p>
+
+
